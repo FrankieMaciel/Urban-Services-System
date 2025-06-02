@@ -20,7 +20,6 @@ export class RequestsService {
   }
 
   update(id: number, updateRequestDto: UpdateRequestDto) {
-    console.log(id);
     return this.prisma.request.update({
       where: { id },
       data: updateRequestDto,
