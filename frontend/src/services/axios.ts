@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const apiBaseUrl: string =  "http://localhost:3000";
+console.log(process.env.REACT_APP_API_URL);
 
 export default axios.create({
-    baseURL: apiBaseUrl,
+    baseURL: process.env.REACT_APP_API_URL,
     headers: { 'Access-Control-Allow-Origin': '*' },
 });

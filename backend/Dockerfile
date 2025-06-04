@@ -22,3 +22,4 @@ EXPOSE 3000
 
 # Command to run the application
 CMD ["node", "dist/main"]
+ENTRYPOINT ["npm", "run", "start:migrate:prod"]
