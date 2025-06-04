@@ -20,8 +20,8 @@ model Request {
   requestTypeId Int
   adress        String      @db.VarChar(255)
   description   String?
-  applicantName String      @db.VarChar(255)
-  applicantCpf  String      @db.VarChar(11)
+  applicant     Applicant   @relation(fields: [applicantId], references: [id])
+  applicantId   Int
   status        String      @default("pendente") @db.VarChar(50)
 }
 
@@ -29,4 +29,11 @@ model RequestType {
   id          Int       @id @default(autoincrement())
   requestName String
   Request     Request[]
+}
+
+model Applicant {
+  id       Int       @id @default(autoincrement())
+  name     String
+  FiscalId String    @db.VarChar(18)
+  Request  Request[]
 }

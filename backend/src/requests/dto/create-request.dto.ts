@@ -15,8 +15,9 @@ export class CreateRequestDto {
     @IsString()
     @IsOptional()
     description?: string;
-    applicantName: string;
-    applicantCpf: string;
+
+    @IsNumber()
+    applicantId: number;
 
     @IsString()
     @IsOptional()
