@@ -6,7 +6,6 @@ import {
   } from 'class-validator';
 
 export class SearchRequestDto {
-    @IsNumber()
     @IsOptional()
     requestTypeId?: number;
 
@@ -18,11 +17,10 @@ export class SearchRequestDto {
     @IsOptional()
     description?: string;
 
-    @IsNumber()
     @IsOptional()
     applicantId?: number;
 
-    @IsString()
+    @IsString()    @IsNumber()
     @IsOptional()
     status?: string;
 }

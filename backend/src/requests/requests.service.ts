@@ -19,7 +19,7 @@ export class RequestsService {
   findMany(SearchRequestDto: SearchRequestDto) {
     const whereClause: any = {};
     if (SearchRequestDto.requestTypeId) {
-      whereClause.name = { contains: SearchRequestDto.requestTypeId, mode: 'insensitive' };
+      whereClause.requestTypeId = Number(SearchRequestDto.requestTypeId);
     }
     if (SearchRequestDto.description) {
       whereClause.description = { contains: SearchRequestDto.description, mode: 'insensitive' };
