@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { ErrorMessageComponentI, InputComponentI } from '../../utils/components';
+import React from 'react';
+import { ErrorMessageComponentI } from '../../utils/components';
 import { Container, Text} from './styles';
 
 const ErrorMessageContainer: React.FC<ErrorMessageComponentI> = ({ text }) => { 

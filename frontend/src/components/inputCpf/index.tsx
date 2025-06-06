@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { InputComponentI } from '../../utils/components';
-import { Container, Title, text, Input, TextContainer } from './styles';
-import axios from '../../services/axios';
-import { RequestTypeE } from '../../utils/entities';
+import { Container, Input, TextContainer } from './styles';
 import { formatCpfCnpj } from './mask';
 
 const InputCpfContainer: React.FC<InputComponentI> = ({ text, setState }) => { 

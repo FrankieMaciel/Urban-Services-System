@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Title, InputDiv, Button, Select, ButtonsDiv} from './styles';
-import RequestContainer from '../../components/requestContainer';
 import InputContainer from '../../components/inputText';
-import { RequestE, RequestTypeE } from '../../utils/entities';
+import { RequestTypeE } from '../../utils/entities';
 import axios from '../../services/axios';
 import InputCpfContainer from '../../components/inputCpf';
 import ErrorMessageContainer from '../../components/errorMessage';
@@ -75,7 +74,7 @@ const CreateRequest: React.FC = () => {
             console.log(data1.id);
         }
 
-        const data2 = await axios.post('/requests', {
+        await axios.post('/requests', {
             requestTypeId: Number(requestType),
             adress: address,
             description: description,
@@ -110,7 +109,7 @@ const CreateRequest: React.FC = () => {
             <ErrorMessageContainer text={cpfCnpjErrorMessage}></ErrorMessageContainer>
             <InputContainer isDisabled={applicantNameIsDisabled} newValue={applicantName} text={"Applicant Name"} setState={HandleApplicantName}></InputContainer>
             <Button disabled={
-                !(requestType && address && description && applicantCPF && applicantName && cpfCnpjErrorMessage == '')
+                !(requestType && address && description && applicantCPF && applicantName && cpfCnpjErrorMessage === '')
             } type="button" onClick={handleCreate}>Create</Button>
         </InputDiv>
         </Container>
