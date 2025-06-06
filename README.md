@@ -20,9 +20,12 @@ DATABASE_URL="postgresql://username:strongpassword@db:5432/postgres?schema=publi
 3. Volte para a raiz do projeto e execute:
 
 ```bash
-docker-compose up
+docker compose up
 ```
+
 
 4. Acesse o sistema em:
 
 [http://localhost:3001](http://localhost:3001)
+
+(Caso a porta esteja diferente, é provável que a 3001 já esteja ocupada por outro processo.)
