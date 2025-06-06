@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateRequestDto } from './dto/create-request.dto';
 import { UpdateRequestDto } from './dto/update-request.dto';
 import { PrismaService } from '../prisma/prisma.service';
+import { SearchRequestDto } from './dto/search-request.dto';
 
 @Injectable()
 export class RequestsService {
@@ -13,6 +14,22 @@ export class RequestsService {
 
   findAll() {
     return this.prisma.request.findMany();
+  }
+
+  findMany(SearchRequestDto: SearchRequestDto) {
+    const whereClause: any = {};
+    if (SearchRequestDto.requestTypeId) {
+      whereClause.name = { contains: SearchRequestDto.requestTypeId, mode: 'insensitive' };
+    }
+    if (SearchRequestDto.description) {
+      whereClause.description = { contains: SearchRequestDto.description, mode: 'insensitive' };
+    }
+    if (SearchRequestDto.adress) {
+      whereClause.adress = { contains: SearchRequestDto.adress, mode: 'insensitive' };
+    }
+    return this.prisma.request.findMany({
+      where: whereClause,
+    })
   }
 
   findOne(id: number) {

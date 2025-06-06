@@ -12,7 +12,13 @@ export class ApplicantController {
     return this.applicantService.create(createApplicantDto);
   }
 
-  @Get(':id')
+  @Get('/cpfcnpj/:fiscalId')
+  findOneByFiscalId(@Param('fiscalId') fiscalId: string) {
+    console.log(fiscalId);
+    return this.applicantService.findOneByFiscalId(fiscalId);
+  }
+
+  @Get('/getId/:id')
   findOne(@Param('id') id: string) {
     return this.applicantService.findOne(+id);
   }

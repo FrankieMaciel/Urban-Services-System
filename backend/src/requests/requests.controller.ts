@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { RequestsService } from './requests.service';
 import { CreateRequestDto } from './dto/create-request.dto';
 import { UpdateRequestDto } from './dto/update-request.dto';
+import { SearchRequestDto } from './dto/search-request.dto';
 
 @Controller('requests')
 export class RequestsController {
@@ -17,9 +18,14 @@ export class RequestsController {
     return this.requestsService.findAll();
   }
 
-  @Get(':id')
+  @Get('findOne/:id')
   findOne(@Param('id') id: string) {
     return this.requestsService.findOne(+id);
+  }
+
+  @Get('search')
+  findMany(@Query() searchRequestDto: SearchRequestDto) {
+    return this.requestsService.findMany(searchRequestDto);
   }
 
   @Patch(':id')

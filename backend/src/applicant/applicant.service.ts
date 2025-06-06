@@ -1,26 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { CreateApplicantDto } from './dto/create-applicant.dto';
 import { UpdateApplicantDto } from './dto/update-applicant.dto';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class ApplicantService {
-  create(createApplicantDto: CreateApplicantDto) {
-    return 'This action adds a new applicant';
-  }
+  constructor(private prisma: PrismaService) {}
 
-  findAll() {
-    return `This action returns all applicant`;
+  create(CreateApplicantDto: CreateApplicantDto) {
+    CreateApplicantDto.fiscalId = decodeURIComponent(CreateApplicantDto.fiscalId);
+    return this.prisma.applicant.create({ data: CreateApplicantDto });
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} applicant`;
+    return this.prisma.applicant.findUnique({ where: { id } });
   }
 
-  update(id: number, updateApplicantDto: UpdateApplicantDto) {
-    return `This action updates a #${id} applicant`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} applicant`;
+  findOneByFiscalId(fiscalId: string) {
+    return this.prisma.applicant.findUnique({ where: { fiscalId: decodeURIComponent(fiscalId)} });
   }
 }

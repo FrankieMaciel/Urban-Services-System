@@ -1,11 +1,13 @@
 import {
     IsString,
+    MinLength,
   } from 'class-validator';
 
 export class CreateApplicantDto {
     @IsString()
-    name: String
+    name: string;
     
+    @MinLength(14)
     @IsString()
-    FiscalId: String
+    fiscalId: string;
 }
