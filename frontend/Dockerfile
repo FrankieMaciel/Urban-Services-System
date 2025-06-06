@@ -9,6 +9,8 @@ COPY package*.json ./
  
 # Install dependencies
 RUN npm install
+
+RUN npm install -g serve
  
 # Copy the rest of your application files
 COPY . .
