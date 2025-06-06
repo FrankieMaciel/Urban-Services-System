@@ -1,0 +1,63 @@
+services:
+  db:
+    image: postgres
+    hostname: postgres
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: strongpassword
+      POSTGRES_DB: postgres
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U username -d postgres"]
+      interval: 5s
+      timeout: 2s
+      retries: 20
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: username@domain-name.com
+      PGADMIN_DEFAULT_PASSWORD: strongpassword
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - db
+    networks:
+      - backend
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./backend/.env
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - backend
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "3001:3000"
+    external_links:
+      - backend:api.backend
+    depends_on:
+      - backend
+
+volumes:
+  local_pgdata:
+  pgadmin-data:
+
+networks:
+  backend:
+    driver: bridge
