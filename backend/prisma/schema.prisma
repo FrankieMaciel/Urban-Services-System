@@ -34,6 +34,6 @@ model RequestType {
 model Applicant {
   id       Int       @id @default(autoincrement())
   name     String
-  FiscalId String    @db.VarChar(18)
+  fiscalId String    @unique @db.VarChar(18)
   Request  Request[]
 }
