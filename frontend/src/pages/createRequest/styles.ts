@@ -11,6 +11,20 @@ export const Container = styled.section`
   margin: 1rem;
 `;
 
+export const InputDiv = styled.div`
+  background-color: #fff;
+  padding-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+`;
+
+export const ButtonsDiv = styled.div`
+  background-color: #fff;
+  padding-bottom: 2em;;
+  width: 80%;
+`;
+
 export const Title = styled.h1`
   text-align: center;
   margin-bottom: 2rem;
@@ -23,48 +37,16 @@ export const Button = styled.button`
   border: 2px solid #555;
 `;
 
-export const ButtonsDiv = styled.div`
-  background-color: #fff;
-  padding-bottom: 0.5em;
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  @media (max-width: 50em) {
-    justify-content: center;
-    display: grid;
-  }
-`;
-
-export const GridDiv = styled.div`
-  background-color: #fff;
-  padding-bottom: 0.5em;
-  margin-left: auto;
-  margin-right: auto;
-  width: 90%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr) );
-`;
-
-export const InputDiv = styled.div`
-  background-color: #fff;
-  padding-bottom: 0.5em;
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
-`;
-
 export const Select = styled.select`
-  width: 10rem;
-  height: 5rem;
+  width: 100%;
+  height: 4rem;
   background: #DDD;
   color: gray;
   padding-left: 1rem;
   padding-right: 1rem;
   font-size: 1rem;
   border:none;
+  margin-bottom: 1rem;
 
        option {
          color: black;

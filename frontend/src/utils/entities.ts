@@ -1,12 +1,18 @@
 export type RequestE = {
     id: number;
-    requestType: number;
+    requestTypeId: number;
     adress: string;
     description: string;
-    applicantName: string;
-    applicantCpf: string;
+    applicantId: number;
     status: string;
   };
+
+
+export type ApplicantE = {
+    id: number;
+    name: string;
+    fiscalId: string;
+};
 
 export type RequestTypeE = {
     id: number;

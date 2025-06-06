@@ -47,32 +47,3 @@ export const GridDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr) );
 `;
-
-export const InputDiv = styled.div`
-  background-color: #fff;
-  padding-bottom: 0.5em;
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
-`;
-
-export const Select = styled.select`
-  width: 10rem;
-  height: 5rem;
-  background: #DDD;
-  color: gray;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  font-size: 1rem;
-  border:none;
-
-       option {
-         color: black;
-         background: white;
-         font-weight: small;
-         display: flex;
-         white-space: pre;
-         min-height: 20px;
-         padding: 0px 2px 1px;
-       }
-`;
