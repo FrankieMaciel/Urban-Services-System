@@ -69,7 +69,7 @@ const RequestList: React.FC = () => {
           <Select onChange={(e) => {HandleTypeSearch(e.target.value)}}>
           <option key={0}  value="" hidden></option>
           <option key={1} value={"requestTypeId"}>Type</option>
-          <option key={2} value={"adress"}>Addres</option>
+          <option key={2} value={"adress"}>Address</option>
           <option key={3} value={"description"}>Description</option>
           </Select>
           {searchType === 'requestTypeId' ? (
