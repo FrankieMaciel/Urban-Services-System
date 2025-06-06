@@ -31,6 +31,7 @@ const RequestContainer: React.FC<RequestComponentI> = ({ data, isAdminMode }) =>
             const data1 = await axios.patch('/requests/' + data.id, {
                 status: value,
             }).then(resp => resp.data);
+            window.location.reload(); 
         }
     return (
         <Container>
@@ -60,9 +61,9 @@ const RequestContainer: React.FC<RequestComponentI> = ({ data, isAdminMode }) =>
             </TextContainer>
             {isAdminMode ? (
                 <Select onChange={(e) => {HandleStatus(e.target.value, data)}}>
-                    <option key={0} value={"pendente"}>Pendente</option>
-                    <option key={1} value={"em andamento"}>Em andamento</option>
-                    <option key={2} value={"concluido"}>Concluído</option>
+                    <option key={0} selected={data.status == 'pendente'} value={"pendente"}>Pendente</option>
+                    <option key={1} selected={data.status == 'em andamento'} value={"em andamento"}>Em andamento</option>
+                    <option key={2} selected={data.status == 'concluido'} value={"concluido"}>Concluído</option>
                 </Select>
             ) : null}
         </Container>

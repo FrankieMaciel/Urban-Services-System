@@ -46,7 +46,6 @@ const CreateRequest: React.FC = () => {
         else  {
             setCpfCnpjErrorMessage('');
             const data = await axios.get('/applicant/cpfcnpj/' + encodeURIComponent(value)).then(resp => resp.data);
-            console.log(data);
             if (data.name)  {
                 applicantId = data.id;
                 console.log(applicantId);
@@ -54,7 +53,6 @@ const CreateRequest: React.FC = () => {
                 setApplicantNameIsDisabled(true);
             }
         }
-        console.log(cpfCnpjErrorMessage);
     }
     function HandleApplicantName(value:string) {
         setApplicantName(value);
@@ -62,13 +60,17 @@ const CreateRequest: React.FC = () => {
 
     async function handleCreate() {
         console.log('criando aplicant');
-        const data1 = await axios.post('/applicant', {
-            name: applicantName,
-            fiscalId: applicantCPF
-        }).then(resp => resp.data).catch(function (error) {
-            console.log(error.toJSON());
-        });
-        if (data1) {
+        if (!applicantCPF) return; 
+        const data = await axios.get('/applicant/cpfcnpj/' + encodeURIComponent(applicantCPF)).then(resp => resp.data);
+        console.log(data);
+        if (data.name)  applicantId = data.id;
+        else {
+            const data1 = await axios.post('/applicant', {
+                name: applicantName,
+                fiscalId: applicantCPF
+            }).then(resp => resp.data).catch(function (error) {
+                console.log(error.toJSON());
+            });
             applicantId = data1.id;
             console.log(data1.id);
         }
@@ -80,6 +82,7 @@ const CreateRequest: React.FC = () => {
             applicantId: applicantId
         }).then(resp => resp.data);
         console.log('Create');
+        routeChangeHome()
     }
 
     let navigate = useNavigate(); 
@@ -103,10 +106,12 @@ const CreateRequest: React.FC = () => {
             </Select>
             <InputContainer text={"Address"} setState={HandleAddress}></InputContainer>
             <InputContainer text={"Description"} setState={HandleDescription}></InputContainer>
-            <InputCpfContainer text={"Applicant CPF"} setState={HandleApplicantCpf}></InputCpfContainer>
+            <InputCpfContainer text={"Applicant CPF/CNPJ"} setState={HandleApplicantCpf}></InputCpfContainer>
             <ErrorMessageContainer text={cpfCnpjErrorMessage}></ErrorMessageContainer>
             <InputContainer isDisabled={applicantNameIsDisabled} newValue={applicantName} text={"Applicant Name"} setState={HandleApplicantName}></InputContainer>
-            <Button type="button" onClick={handleCreate}>Create</Button>
+            <Button disabled={
+                !(requestType && address && description && applicantCPF && applicantName && cpfCnpjErrorMessage == '')
+            } type="button" onClick={handleCreate}>Create</Button>
         </InputDiv>
         </Container>
     );

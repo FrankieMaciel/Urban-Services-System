@@ -13,7 +13,7 @@ const AdminRequest: React.FC = () => {
     useEffect(() => {
         (async () => {
           const data = await axios.get('/requests').then(resp => resp.data);
-          setRequests(data);
+          setRequests(data.reverse());
           console.log(data);
         })();
     }, []);

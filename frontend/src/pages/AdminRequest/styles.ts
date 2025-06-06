@@ -21,6 +21,7 @@ export const Button = styled.button`
   font-size: 1em;
   padding: 0.5em 2em;
   border: 2px solid #555;
+  cursor: pointer;
 `;
 
 export const ButtonsDiv = styled.div`
@@ -40,10 +41,10 @@ export const ButtonsDiv = styled.div`
 
 export const GridDiv = styled.div`
   background-color: #fff;
-  padding-bottom: 0.5em;
+  padding: 0.5em;
   margin-left: auto;
   margin-right: auto;
-  width: 90%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr) );
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(40ch, 1fr) );
 `;

@@ -1,9 +1,17 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: #DDD;
-  padding: 0.5rem;
-  margin: 0.5rem;
+  border: 0.5rem solid #DDD;
+  display: flex;
+  flex-direction: column;
+  /* background on every other direct child element*/
+  > :nth-child(2n) {
+    background: #0003;
+  }
+
+  > :last-child {
+    height: 100%; 
+  }
 `;
 
 export const Title = styled.h2`
@@ -13,24 +21,26 @@ export const Title = styled.h2`
 
 export const TextContent = styled.h2`
   font-weight: normal;
+  line-break: anywhere;
 `;
 
 export const TextContainer = styled.div`
   background-color: #fff;
-  padding-bottom: 0.5em;
-  display: flex;
+  padding: 0.5em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 `;
 
 export const Select = styled.select`
   width: 100%;
-  height: 4rem;
+  height: 4rem !important;
   background: #DDD;
   color: gray;
   padding-left: 1rem;
   padding-right: 1rem;
   font-size: 1rem;
   border:none;
-  margin-bottom: 1rem;
+  cursor: pointer;
 
        option {
          color: black;

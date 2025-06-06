@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Title, Button, ButtonsDiv, GridDiv, InputDiv, Select } from './styles';
 import RequestContainer from '../../components/requestContainer';
-import { RequestE } from '../../utils/entities';
+import { RequestE, RequestTypeE } from '../../utils/entities';
 import axios from '../../services/axios';
 import { useNavigate } from "react-router-dom";
 import InputContainer from '../../components/inputText';
@@ -11,12 +11,20 @@ const RequestList: React.FC = () => {
 
     const [requests, setRequests] = useState<RequestE[]>([]);
     const [searchType, setSearchType] = useState<string>();
+    const [requestTypes, setRequestTypes] = useState<RequestTypeE[]>([]);
 
     useEffect(() => {
         (async () => {
           const data = await axios.get('/requests').then(resp => resp.data);
-          setRequests(data);
+          setRequests(data.reverse());
           console.log(data);
+        })();
+    }, []);
+
+    useEffect(() => {
+        (async () => {
+            const data = await axios.get('/request-type').then(resp => resp.data);
+            setRequestTypes(data);
         })();
     }, []);
 
@@ -34,7 +42,7 @@ const RequestList: React.FC = () => {
       console.log(value);
       if (value === '') {
         const data = await axios.get('/requests').then(resp => resp.data);
-        setRequests(data);
+        setRequests(data.reverse());
       } else {
         const data1 = await axios.get('/requests/search', { params: {
           [searchType]: value,
@@ -44,7 +52,9 @@ const RequestList: React.FC = () => {
       setRequests(data1);
     }
     }
-    function HandleTypeSearch(value:string) {
+    async function HandleTypeSearch(value:string) {
+      const data = await axios.get('/requests').then(resp => resp.data);
+      setRequests(data.reverse());
       setSearchType(value);
     }
 
@@ -57,12 +67,20 @@ const RequestList: React.FC = () => {
         </ButtonsDiv>
         <ButtonsDiv>
           <Select onChange={(e) => {HandleTypeSearch(e.target.value)}}>
-          <option key={0} value={"requestTypeId"}>Type</option>
-          <option key={1} value={"adress"}>Addres</option>
-          <option key={2} value={"description"}>Description</option>
-          <option key={3} value={"status"}>Status</option>
+          <option key={0}  value="" hidden></option>
+          <option key={1} value={"requestTypeId"}>Type</option>
+          <option key={2} value={"adress"}>Addres</option>
+          <option key={3} value={"description"}>Description</option>
           </Select>
+          {searchType === 'requestTypeId' ? (
+              <Select onChange={(e) => {HandleSearch(e.target.value)}}>
+                  {requestTypes.map(type => (
+                      <option key={type.id} value={type.id}>{type.requestName}</option>
+                  ))}
+              </Select>
+          ) : 
           <InputContainer text={"Search"} setState={HandleSearch}></InputContainer>
+          }
         </ButtonsDiv>
         <GridDiv>
           {requests.map(request => (
